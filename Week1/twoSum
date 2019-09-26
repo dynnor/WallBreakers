@@ -1,0 +1,27 @@
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        //return indices of the two numbers such that they add up to
+        //a specific target
+        //each input will have only one solution
+        //you cannot use the same element twice
+
+        HashMap<Integer, Integer> valAndIndex= new HashMap<>();
+
+        for(int index = 0; index <nums.length; index++ ){
+
+            //while we iterate we need to cross refernce what's in the
+            //hash map already
+
+            int need = target- nums[index];
+            //if it's what we're lookign for then we need to return an
+            //new array with the index we we're at and the index of the reoccuring number
+            if(valAndIndex.containsKey(need))
+                return new int[]{valAndIndex.get(need), index};
+
+            //if it's not just put the current num in the hashmap
+            valAndIndex.put(nums[index], index);
+        }
+     //just have a return statement  because it's needed
+        return new int[]{0};
+    }
+}

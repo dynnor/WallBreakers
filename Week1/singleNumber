@@ -1,0 +1,12 @@
+class Solution {
+    public int singleNumber(int[] nums) {
+        //find the element that isnt repeated twice
+        //if you XOR a number with itself it will be 0 but if one thing is different than it will be 1
+        int ret = 0;
+        for(int index =0; index<nums.length; index++){
+
+            ret ^= nums[index];
+            }
+        return ret;
+    }
+}

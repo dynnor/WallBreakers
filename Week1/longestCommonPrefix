@@ -1,0 +1,31 @@
+class Solution
+{
+    public String longestCommonPrefix(String[] strs)
+    {
+        //write a function to find the longest common prefix string
+        //amongst the array of strings
+        //if there's nothing in common return the empty string
+
+        if (strs.length == 0)
+            return "";
+
+        // Let's assume the first string is the longest.
+         //assuming they will have the first one in common
+
+        int strLen = strs[0].length();
+
+        //  check the char at the current index of each string to see if they're all the same.
+        for (int charIndex = 0; charIndex < strLen; charIndex++)
+        {
+            for (String currString : strs)
+            {
+                //if two letters don't match up return the substring from
+                //0 to the current index of the current word we are on
+                if (charIndex >= currString.length() || strs[0].charAt(charIndex) != currString.charAt(charIndex))
+                    return currString.substring(0, charIndex);
+            }
+        }
+
+        return strs[0];
+    }
+}

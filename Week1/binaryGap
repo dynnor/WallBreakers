@@ -1,0 +1,34 @@
+class Solution {
+    public int binaryGap(int N) {
+        //find the longest distance between two consecutive 1's
+        //in the binary representation of N
+
+        int maxDistance = 0;
+        int counter = 0;
+
+        //while the smallest bit is 0 and N isn't equal to 0,
+        //shift N 1 bit to the right
+
+        while ((N&1) == 0 &&  N !=0)
+            N = N >>1;
+
+        //basically gauranteed atleast onee 1 and so now
+        //every tine we find a 1 we incement the distance
+        //if we have less than two one's then the loop will exit and return 0 as the max distance
+        while (N!=0){
+            N = N >>1;
+            counter ++;
+
+            //now we check if we have a 1
+            if ((N&1) == 1){
+
+                maxDistance = Math.max(maxDistance, counter);
+                //once find the max we store the value as the "current" max
+                //and then update counter to 0 so we can look for another distance between two 1s
+                counter = 0;
+            }
+
+        }
+        return maxDistance;
+    }
+}

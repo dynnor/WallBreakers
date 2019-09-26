@@ -1,0 +1,54 @@
+class Solution {
+    public String reverseVowels(String s) {
+        //want to write a function that takes a string as input
+        //and reverse only the vowels of the string
+
+        //have to go through the entire string and when reach a vowel
+        //remember it's index location
+        //swap with another saved value
+
+        //use an array
+        char[] strArray = s.toCharArray();
+        int leftIndex = 0;
+        int rightIndex = s.length() - 1;
+        char temp;
+
+        //start processing from the left
+         while (leftIndex < rightIndex)
+         {
+             //if it's a vowel (hit it from the left side)
+
+            if (isVowel(strArray[leftIndex]))
+            {
+                //while we don't have a vowel from the right side
+                while (!isVowel(strArray[rightIndex]))
+                    //keep subtracting until you find one
+                    rightIndex--;
+                //at this point you found a vowel
+                //swap the left vowel with the right vowel
+                temp = strArray[leftIndex];
+                strArray[leftIndex] = strArray[rightIndex];
+                strArray[rightIndex] = temp;
+                //and then subtract from the right index again so we're
+                //not in the same position when we continue from the loop
+                 rightIndex--;
+            }
+             //now at this point we dont have a vowel in the left index
+             //so we add 1 from the left index
+             leftIndex++;
+
+
+         }
+        return String.valueOf(strArray);
+
+    }
+     private boolean isVowel(char in)
+    {
+        if (in == 'a' || in == 'e' || in == 'i' || in == 'o' || in == 'u')
+            return true;
+        if (in == 'A' || in == 'E' || in == 'I' || in == 'O' || in == 'U')
+            return true;
+
+        return false;
+    }
+}

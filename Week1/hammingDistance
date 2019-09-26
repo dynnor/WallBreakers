@@ -1,0 +1,24 @@
+class Solution {
+    public int hammingDistance(int x, int y) {
+      //number of poisition bits are different
+        //perform XOR operation and keep count
+        //with XOR if the two values are different
+        //your output will be a 1
+        int distance = 0;
+
+        //use XOR
+        x = x^y;
+        //now we have to go through thw bits and increment
+        //the distance whenever we have a 1
+        for(int i =0; i<32; i++)
+        {
+            //use and to tell us if we have a 1
+            if((x>>i & 1)== 1)
+                distance ++;
+
+
+        }
+        return distance;
+
+    }
+}

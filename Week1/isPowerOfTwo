@@ -1,0 +1,15 @@
+//Dynnor Shebshaievitz
+
+class Solution {
+    public boolean isPowerOfTwo(int n) {
+        //we can start with 1 and shift it a bit to the left
+        // to multiply by 2
+        //if we repeat this 30 times, we've exhasuted all possible
+        //powers of 2 that are integers
+
+        for(int power = 0; power < 31; power ++)
+            if (n ==1 << power)
+                return true;
+        return false;
+    }
+}

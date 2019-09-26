@@ -1,0 +1,41 @@
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        //want to know if t is an anagram of s
+        //def: a word, phrase, or name formed by rearranging the letters of another, such as cinema, formed from iceman.
+
+        //therefore thehy have to be the same length
+        //first base cae if they're not the same length then we know = false
+        if (s.length() != t.length())
+            return false;
+
+        //turn each string into a char array to index the values
+        char[] sArray = s.toCharArray();
+        char[] tArray = t.toCharArray();
+
+        //need a way of accounting for every letter
+
+        //increment through the arrays and start processing the letters
+        //ASCII- so we can easily process the strings
+        int[] sCount = new int[128];
+        int[] tCount = new int[128];
+
+        //have to account for upper and lowercase letters
+
+        for (int index = 0; index < sArray.length; index++)
+        {
+
+            sCount[sArray[index]]++; //want to keep track of how many letters there are for each string
+            tCount[tArray[index]]++;
+
+        }
+
+        //iterate through the lowecase letters of the
+        for(int index = 'a'; index < 'z'; index++){
+
+            if (sCount[index] != tCount[index])
+                return false;
+        }
+        return true;
+
+    }
+}

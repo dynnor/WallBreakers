@@ -1,0 +1,25 @@
+class Solution {
+    public int findComplement(int num) {
+        /*
+        *Given a positive integer, output its complement number.
+        The complement strategy is to flip the bits of its binary representation.
+        */
+        //figure out what the base minimum is - all ones
+        //because then will flip to all 0's
+
+   int allOnes = 1;
+        while (allOnes < num){
+            //shift all bits to the left 1
+            allOnes = allOnes << 1;
+
+            //sdd 1 to all 1's so the final bit will be set to 1
+            allOnes++;
+
+
+        }
+    //now we can perform XOR operation to flip all the bits
+        return (num ^ allOnes);
+
+    }
+
+}
