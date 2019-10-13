@@ -1,0 +1,53 @@
+class MyHashSet {
+
+
+    /** Initialize your data structure here. */
+
+    boolean[] mySet;
+
+    public MyHashSet() {
+        mySet = new boolean[128];
+    }
+
+    public void add(int key) {
+        //if key bigger than the array size then expand
+        if( key>= mySet.length)
+            expand(key);
+        mySet[key] = true;
+
+    }
+
+    public void remove(int key) {
+        //if the key is larger there's nothing to remove
+        if(key>= mySet.length)
+            return;
+        mySet[key] = false;
+
+
+    }
+
+    /** Returns true if this set contains the specified element */
+    public boolean contains(int key) {
+        //if the key is higher it means we do not have it
+        //otherwise just return the value
+
+        if(key >= mySet.length)
+            return false;
+        return mySet[key];
+
+    }
+
+    private void expand (int highest)
+    {
+        //overwrite the array with a new one of size key+1
+        mySet = Arrays.copyOf(mySet, highest +1);
+    }
+}
+
+/**
+ * Your MyHashSet object will be instantiated and called as such:
+ * MyHashSet obj = new MyHashSet();
+ * obj.add(key);
+ * obj.remove(key);
+ * boolean param_3 = obj.contains(key);
+ */

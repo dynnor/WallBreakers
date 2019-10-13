@@ -1,0 +1,23 @@
+class Solution {
+    public int numSpecialEquivGroups(String[] A) {
+
+    HashSet<String> groups = new HashSet<>();
+
+        for (String word : A)
+        {
+            // Java initializes all values in an int array to 0 upon creation.
+            int[] countArray = new int[52];
+
+            for (int index = 0, wordLen = word.length(); index < wordLen; index++)
+            {
+                // Add the letter to the array, adding 26 first if it's even parity.
+                countArray[word.charAt(index) - 'a' + (index % 2 == 1 ? 0 : 26)]++;
+            }
+
+            // Repeated groups will be ignored since hashsets only contain unique values.
+            groups.add(Arrays.toString(countArray));
+        }
+
+        return groups.size();
+    }
+}

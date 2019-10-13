@@ -1,0 +1,88 @@
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        //check for each column
+        for(int row = 0; row < board.length; row++){
+
+        //each col will get it's own validity array
+            boolean[] validity = new boolean[9];
+            for(int col = 0; col < board[0].length; col++){
+
+                //if it's empty we don't have to worry about it
+                if(board[row][col] == '.')
+                    continue;
+                else{
+
+                    //if it's filled we're assuming that we've
+                    //already encountered that number in the column
+                    //so we return false
+                    if(validity[board[row][col] -'1'])
+                        return false;
+                    //otherwise we will mark it that we've now seen it
+                    else
+                        validity[board[row][col] - '1'] = true;
+
+                }
+            }
+        }
+        //check each row to be a valid setup, like we did for the column
+        for (int col = 0; col < board[0].length; col++)
+        {
+
+            boolean[] validity = new boolean[9];
+            for(int row= 0; row < board.length; row ++)
+            {
+                if (board[row][col] == '.')
+                    continue;
+            else
+            {
+
+
+                if(validity[board[row][col] - '1'])
+                    return false;
+                else validity[board[row][col] - '1'] = true;
+
+            }
+        }
+    }
+
+    //next case need to account is for the subsqaure
+    //by using two outter loops we can think about how to set the row and the column
+    //to be correct
+
+    for (int squareX = 0; squareX < board.length; squareX += 3)
+    {
+
+        for (int squareY = 0; squareY < board[0].length; squareY += 3)
+        {
+
+            boolean[] validity = new boolean[9];
+
+            //each sub sqaure is 3x3
+            //so we have to get an upper limit and a lower limit at 3
+            for(int row= 0; row<3; row++)
+            {
+
+                for(int col = 0; col <3; col++)
+                {
+
+                    //same as we did before we want to check that we encountered a value or not
+                    if(board[squareX + row][squareY + col] == '.')
+                        continue;
+                    else
+                    {
+                        if(validity[board[squareX + row][squareY + col] - '1'])
+                            return false;
+                        else validity[board[squareX + row][squareY + col] - '1'] = true;
+
+                    }
+                }
+            }
+        }
+
+    }
+
+    //at this point we have survived all the tests
+        // so we can return true
+        return true;
+    }
+}

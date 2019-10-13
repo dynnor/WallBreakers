@@ -1,0 +1,46 @@
+class Solution {
+    public boolean wordPattern(String pattern, String str) {
+        //This is just like Isomorphic Strings, but with a char-String mapping instead of a char-char one.
+        HashMap<Character, String> patternMap = new HashMap<> ();
+        int startIndex = 0;
+        int stopIndex = 0;
+        int patLen = pattern.length();
+        int strLen = str.length();
+
+        for (int patIndex = 0; patIndex < patLen; patIndex++){
+
+
+            char currChar = pattern.charAt(patIndex);
+
+            //get the current word as a substring of the bugger string
+
+            startIndex = stopIndex;
+            //if we start out of bound we can automatically return false
+            //bc not enough words and won't be mapped correctly
+            if(startIndex >= strLen)
+                return false;
+            while (stopIndex < strLen && str.charAt(stopIndex) != ' ')
+                stopIndex++;
+            String currWord = str.substring(startIndex, stopIndex ++);
+
+            //in order to check if they are equal
+            //have to use equals() instead of ==
+
+            //check if map already has this char and if it is mapped to the correct currword
+            if (patternMap.containsKey(currChar) && !patternMap.get(currChar).equals(currWord))
+                return false;
+            //checks if map already has the currword mapped and it's for a different char
+            if (patternMap.containsValue(currWord) &&
+               (patternMap.get(currChar) == null || !patternMap.get(currChar).equals(currWord)))
+                return false;
+            //at this point we can make a new mapping
+
+            patternMap.put(currChar, currWord);
+            }
+        //if we have too many strings we know that it won't be mapped correctly
+        if(stopIndex < strLen)
+            return false;
+        return true;
+
+    }
+}

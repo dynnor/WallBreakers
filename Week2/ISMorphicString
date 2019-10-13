@@ -1,0 +1,71 @@
+
+
+
+/*
+//for some reason this was the wrong solution
+//have to relook why
+//below is the correct solution with a char array
+
+
+class Solution {
+    public boolean isIsomorphic(String s, String t) {
+
+        HashMap<Character, Character> letterMmap = new HashMap<>();
+        //plan is to iterate through s
+        //create a map if we have not seen the char yet
+        //and returning false if we've seen it and t does not have
+        //the right map
+
+        for(int index = 0, strLen = s.length(); index < strLen; index ++){
+
+            char s_char = s.charAt(index);
+            char t_char = t.charAt(index);
+
+            //if the lettermap has the current char as the key, check that
+            //the mapping is correct
+
+            if (letterMap.containsKey(s_char) && letterMap.get(s_char) != t_char)
+                return false;
+            //if it doesnt have the key
+            //we then have to check if it doesnt have a mapping for the t_char
+            if(letterMap.containsValue(t_char))
+
+                return false;
+            //otherwise we will make a new mapping
+            letterMap.put(s_char, t_char);
+
+
+            }
+        return true;
+    }
+}
+*/
+class Solution
+{
+    public boolean isIsomorphic(String s, String t)
+    {
+        // Instead of a hashmap, use two char arrays to create a two-way "binding" between each char.
+        // This has much better runtime and memory usage.
+        char[] sMapArray = new char[128];
+        char[] tMapArray = new char[128];
+
+        for (int index = 0, strLen = s.length(); index < strLen; index++)
+        {
+            char sChar = s.charAt(index);
+            char tChar = t.charAt(index);
+
+            // If the maparray for s has a value for s's char, check that it's correct.
+            if (sMapArray[sChar] != 0 && sMapArray[sChar] != tChar)
+                return false;
+            // If the maparray for t has a value for t's char, check that it's correct, too.
+            if (tMapArray[tChar] != 0 && tMapArray[tChar] != sChar)
+                return false;
+
+            // Otherwise, make new mappings.
+            sMapArray[sChar] = tChar;
+            tMapArray[tChar] = sChar;
+        }
+
+        return true;
+    }
+}
