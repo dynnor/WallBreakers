@@ -1,0 +1,29 @@
+class Solution {
+    public double myPow(double x, int n) {
+        //use the fast powerinf algorithm to optimize the solution
+        //want to deal with values equal to Integer.MAX_VALUE or .MIN_VALUE
+        //will be using "long"
+        long longN = n;
+        //if we have a negative exponent we want to convert it to a postive one
+        if(longN < 0){
+
+
+            x = 1/x;
+            longN = -longN;
+
+        }
+        double product = 1;
+        double currProd = x;
+
+        //for every bit in n, if we get a 1, multiply the product by x
+        //then we want to square x, regardless of the bit value
+        for(long i = longN; i > 0; i/=2){
+
+            if((i%2)==1)
+                product *=currProd;
+            currProd *= currProd;
+
+        }
+        return product;
+    }
+}

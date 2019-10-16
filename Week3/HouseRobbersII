@@ -1,0 +1,51 @@
+class Solution {
+    public int rob(int[] nums) {
+
+        if( nums.length == 0)
+            return 0;
+        if(nums.length == 1)
+            return nums[0];
+        if(nums.length ==2)
+            return Math.max(nums[0], nums[1]);
+        //do the process twice?
+        //do every house except the last one (since it's the adjacent one)
+        //and then start with the second house and do every house after
+        int[] firsthouse = new int[nums.length -1];
+        for(int house = 0; house <nums.length -1; house++){
+
+            firsthouse[house] = nums[house];
+
+        }
+
+        int[] secondhouse = new int[nums.length -1];
+        for(int house = 0; house < nums.length - 1; house ++){
+
+            secondhouse[house] = nums[house+1];
+        }
+        //then we choose the highest profit
+        return Math.max(robHouses(firsthouse), robHouses(secondhouse));
+
+    }
+    private int robHouses(int[] houses){
+        //the lowest number of houses =1
+        if(houses.length == 1)
+            return houses[0];
+        if(houses.length == 2)
+            return Math.max(houses[0], houses[1]);
+
+        //start with the house that will give the most profit
+        int[] profit = new int[houses.length];
+        profit[0] = houses[0];
+        profit[1] = Math.max(houses[0], houses[1]);
+
+        //at this point we need to check if our profit  is better if
+        //we rob the current house and add it to the porfit
+        // we got 2 houses ago, or skip it anf profit from the last one
+
+        for( int num = 2; num<houses.length; num++){
+
+            profit[num] = Math.max(houses[num] + profit[num -2], profit[num-1]);
+        }
+        return profit[houses.length - 1];
+    }
+}

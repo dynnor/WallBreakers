@@ -1,0 +1,50 @@
+class Solution {
+    public List<Integer> partitionLabels(String S) {
+        if(S == null || S.length() == 0)
+            return new ArrayList<Integer>();
+
+        List<Integer> lengthList = new ArrayList();
+
+        int[] letterLastSeen = new int[26];
+        Arrays.fill(letterLastSeen, -1);
+
+        int latestRange = 0;
+        int prevLatestRange = -1;
+        int sLen = S.length();
+
+        for(int index = 0; index < sLen; index++){
+
+            int letter = S.charAt(index) - 'a';
+            //if we havent checked S for letter's most recent 
+            //appearance then we find it
+            if(letterLastSeen[letter] == -1){
+
+                char currChar = S.charAt(index);
+                //check every char in S that comes after this one
+                //if we see it again --> mark as latest appearance
+                for(int searchIndex = index; searchIndex < sLen; searchIndex++){
+
+                    if(S.charAt(searchIndex) == currChar){
+
+                        letterLastSeen[letter] = searchIndex;
+
+                        // if the current length of the longest substring is less than the index
+                        //we have to update it
+                        if(latestRange < searchIndex){
+                            latestRange = searchIndex;
+                        }
+                    }
+                }
+            }
+            //if we are at the last appearance of the char, we have to check if we're at the end
+            //of the shortest substring
+            //if we are then we're going to add it (the substring length) to the list
+            if(index == latestRange){
+                lengthList.add(latestRange-prevLatestRange);
+                prevLatestRange = latestRange;
+            }
+
+        }
+        return lengthList;
+    }
+}

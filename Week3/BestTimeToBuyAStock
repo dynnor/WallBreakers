@@ -1,0 +1,22 @@
+class Solution {
+    public int maxProfit(int[] prices) {
+        if(prices.length == 0)
+            return 0;
+        int maxProfit = 0;
+        int minPrice = Integer.MAX_VALUE;
+
+        for(int price: prices){
+            //if the current price is lower than the one we have, and then we mark it
+            if(price < minPrice){
+                minPrice = price;
+
+            }
+            //otherwise, we have no-min, so check if we can get a better profit by selling at this point
+            else if (price - minPrice > maxProfit)
+            {
+                maxProfit = price - minPrice;
+            }
+        }
+        return maxProfit;
+    }
+}

@@ -1,0 +1,27 @@
+class Solution {
+    public int findContentChildren(int[] g, int[] s) {
+        if (g.length == 0 || s.length == 0)
+            return 0;
+
+        //need to keep track of the current child
+        int currChild = 0;
+        //sort the greed and cookie sizes
+        Arrays.sort(g);
+        Arrays.sort(s);
+
+        //loop through all the cookies and check if each satisfies
+        //the current kid
+        //if it does move on to the next kid
+
+        for( int cookiesize: s)
+        {
+
+            if(currChild >= g.length)
+                break;
+            if(g[currChild] <= cookiesize)
+                currChild++;
+        }
+        return currChild;
+
+    }
+}

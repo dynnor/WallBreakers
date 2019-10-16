@@ -1,0 +1,16 @@
+class Solution {
+    public int arrayPairSum(int[] nums) {
+
+        if(nums.length ==1)
+            return nums[0];
+        //want to sort the array
+        //so then we can take the first number of each pair
+        Arrays.sort(nums);
+        int sum = 0;
+
+        for(int index = 0; index < nums.length; index +=2){
+            sum += nums[index];
+        }
+        return sum;
+    }
+}

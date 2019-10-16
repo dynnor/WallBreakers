@@ -1,0 +1,47 @@
+class Solution {
+    public int findMinArrowShots(int[][] points) {
+        //first thing that we want to check if there are
+        //even any balloons that we can pop
+        if( points.length == 0|| points[0].length == 0){
+
+            return 0;
+        }
+
+        //have to consider the end points of the balloon
+        //then pop all the balloons that come before it, and then
+        //repeat for the next end point
+
+        //first thing need to do is sort the array
+
+        Arrays.sort(points, new SortByEndPoint());
+
+        int arrows = 1;
+        //the first endpoint want to look at is the earliest end point
+        int currEnd = points[0][1];
+
+        //have a for loop to check the start and end points
+        //if the balloon starts after currEnd , add to the arrows
+        //and then switch the ballon with a balloon whose end we are
+        //looking at
+        for(int[]balloon: points)
+        {
+
+            if(currEnd < balloon[0]){
+
+                arrows++;
+                currEnd = balloon[1];
+            }
+        }
+
+       //at this point return the arrows
+        return arrows;
+    }
+}
+class SortByEndPoint implements Comparator<int[]>
+{
+    // A typical compare() method returns a pos value if obj1 is greater (comes later), 0 if equal, or neg if obj1 is less.
+    public int compare(int[] array1, int[] array2)
+    {
+        return array1[1] - array2[1];
+    }
+}

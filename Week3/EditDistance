@@ -1,0 +1,50 @@
+class Solution {
+    public int minDistance(String word1, String word2) {
+        //for this problem we are going to use the Levenshtein Distance Algorithm
+        //this will refer to the number of insertions, changes or deletions
+        //required to change one string to another in single-edit increments
+        int w1len = word1.length();
+        int w2len = word2.length();
+        //if wither/both strings == empty
+        //then the number od steps = length of longer string or 0
+        if(w1len == 0|| w2len ==0)
+            return w1len+w2len;
+        //dynamic programming = store the edit counts in an array
+        int[][] changes = new int[w1len+1][w2len+1];
+
+        //initialize the first values to be 0 to w1len
+        for(int row= 0; row <=w1len; row++)
+            changes[row][0] = row;
+            //initialize the first col val = 0--> w2len
+            for(int col = 0; col <=w2len; col++ )
+
+                changes[0][col]= col;
+                //now we have to go through every cell in the array
+                //except for the first row/col
+                //to check if the character in each index of string 1 is the same
+                //as the char in string 2--> true ++ to that move
+                //--cost to the right of the array by finding the min
+                //of the current cell+cost, the cell to the left,
+                //and the cell to the left and up
+
+                for(int row =1; row <= w1len; row++){
+                    char cOfStr1 = word1.charAt(row-1);
+                    for(int col = 1; col <= w2len; col++){
+                        char cOfStr2 = word2.charAt(col -1);
+
+                        int cost = 0;
+                        if(cOfStr1 != cOfStr2)
+                            cost= 1;
+                        changes[row][col] = Math.min(changes[row-1][col-1] + cost, Math.min(changes[row-1][col]+1, changes[row][col-1]+1));
+
+
+
+
+
+            }
+
+        }
+      //at this point we know value on the bottom right = minimum
+        return changes[w1len][w2len];
+    }
+}
