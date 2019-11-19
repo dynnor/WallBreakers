@@ -1,0 +1,29 @@
+class Solution {
+    public List<Integer> topKFrequent(int[] nums, int k) {
+        //want to store every element in a hashmap
+        HashMap<Integer, Integer> freqMap = new HashMap<>();
+        for (int num: nums){
+
+            freqMap.put(num, freqMap.getOrDefault(num, 0) + 1);
+        }
+        //use a priority queue
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>((key1, key2) -> freqMap.get(key1) - freqMap.get(key2));
+
+        //remove all the entries that aren't top k most frew
+        for(int entry: freqMap.keySet())
+        {
+
+            maxHeap.add(entry);
+            if (maxHeap.size() > k)
+                maxHeap.poll();
+
+        }
+        //the top k most freq elements will be the elements left in maxHeap
+        List<Integer> result = new ArrayList<Integer>();
+        while( !maxHeap.isEmpty()){
+            //add elements
+            result.add(0, maxHeap.poll());
+        }
+        return result;
+    }
+}

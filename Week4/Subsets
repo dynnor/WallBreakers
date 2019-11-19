@@ -1,0 +1,27 @@
+class Solution
+{
+    public List<List<Integer>> subsets(int[] nums)
+    {
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
+
+        // subset as a binary representation of every integer up to nums.length
+        // 0 is the empty set
+        //1 is a set with only the last element in nums[]
+        int rounds = 1 << nums.length;
+
+        for (int i = 0; i < rounds; i++)
+        {
+            List<Integer> subset = new ArrayList<Integer>();
+
+            for (int j = 0; j < nums.length; j++)
+            {
+                if ((i & (1 << j)) > 0)
+                    subset.add(nums[j]);
+            }
+
+            result.add(subset);
+        }
+
+        return result;
+    }
+}

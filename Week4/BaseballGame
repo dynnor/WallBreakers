@@ -1,0 +1,39 @@
+class Solution {
+    public int calPoints(String[] ops) {
+        Stack<Integer> scores = new Stack<>();
+        int sum = 0;
+        int temp = 0;
+        int temp1 = 0;
+
+        for(String round : ops)
+        {
+
+            switch (round.charAt(0)) {
+            //if we get a '+' we add the last twp scores
+            //and then push their sum
+            case '+':   temp = scores.pop();
+                        temp1 = temp + scores.peek();
+                        sum += temp1;
+                        scores.push(temp);
+                        scores.push(temp1);
+                        break;
+            // 'D' - double the most recent score
+            case 'D':   temp = scores.peek()*2;
+                        sum += temp;
+                        scores.push(temp);
+                        break;
+            //'C' - clear the most recent score
+            case 'C':   sum -= scores.pop();
+                        break;
+            //anything else will be a number and we just
+            //push that onto the stack
+            default:    temp = Integer.parseInt(round);
+                        sum += temp;
+                        scores.push(temp);
+                        break;
+            }
+
+        }
+       return sum;
+    }
+}

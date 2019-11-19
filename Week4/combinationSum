@@ -1,0 +1,46 @@
+class Solution {
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+       List<List<Integer>> result = new ArrayList<List<Integer>>();
+
+        //sort the candidates so it will be easier to come up with combos
+        Arrays.sort(candidates);
+        //only want to use the numbers that are less than or equal to the targer
+        //so we don't have to worry about calculations that aren't necessary
+
+        for (int i = 0; i < candidates.length && candidates[i] <= target; i++){
+            //here you want to get the list of combinations
+            getCombos(result, new ArrayList<Integer>(), candidates, target, 0, i);
+        }
+        //and then at this point you can return the result;
+       return result;
+    }
+    private void getCombos(List<List<Integer>> result, List<Integer> currList, int[] candidates, int target, int sum, int index){
+
+        //if the current number makes the sum too high
+        if(sum + candidates[index]> target)
+            return; //you just want to quit
+        //otherwise going to check the possibilites
+        currList.add(candidates[index]); //first number - index at 0
+        sum += candidates[index];
+
+        //if we hit the target --> we have to make a copy bc might
+        //have multiple options
+        if( sum == target){
+            result.add(new ArrayList<Integer>(currList));
+            currList.remove(currList.size() - 1);
+            return;
+        }
+
+        //sum is low enough can go through more candidates to find more combos
+        else{
+            for(int i = index; i < candidates.length && sum + candidates[i] <= target; i++){
+
+                getCombos(result, currList, candidates, target, sum, i);
+            }
+        }
+        //remove the current element from the list so it doesn't affect the parent call
+        currList.remove(currList.size() - 1);
+
+        return;
+    }
+}

@@ -1,0 +1,72 @@
+class MyQueue {
+    Stack <Integer> queueStack;
+    Stack <Integer> temp;
+    int queueSize;
+
+    /** Initialize your data structure here. */
+    public MyQueue() {
+        queueStack = new Stack<>();
+        temp = new Stack<>();
+        queueSize = 0;
+    }
+
+    /** Push element x to the back of queue. */
+    public void push(int x) {
+        queueStack.push(x);
+        queueSize++;
+    }
+
+    /** Removes the element from in front of queue and returns that element. */
+    public int pop() {
+        return betterPopPeek(true);
+    }
+
+    /** Get the front element. */
+    public int peek() {
+        return betterPopPeek(false);
+    }
+
+    /** Returns whether the queue is empty. */
+    public boolean empty() {
+        return queueStack.empty();
+    }
+    //very sim to the previous example
+    //removing the final elements
+    private int betterPopPeek(boolean removeTail){
+        //remove everything except the dinal entry in the stack and
+        //store them in temp
+
+        for( int i = 0; i< queueSize -1; i++){
+            temp.push(queueStack.pop());
+        }
+        //store the last entry as answer
+        int answer = queueStack.pop();
+        queueSize--;
+        //if onnly need to worry about peek(), then we push it to temp
+        //
+        if(!removeTail){
+
+            temp.push(answer);
+            queueSize++;
+
+        }
+        //fill by reversing the process
+        fillQueueStack();
+        return answer;
+    }
+    private void fillQueueStack(){
+        for(int counter = 0; counter < queueSize; counter++){
+
+            queueStack.push(temp.pop());
+        }
+    }
+}
+
+/**
+ * Your MyQueue object will be instantiated and called as such:
+ * MyQueue obj = new MyQueue();
+ * obj.push(x);
+ * int param_2 = obj.pop();
+ * int param_3 = obj.peek();
+ * boolean param_4 = obj.empty();
+ */

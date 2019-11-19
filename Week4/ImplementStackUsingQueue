@@ -1,0 +1,70 @@
+class MyStack {
+
+    Queue<Integer> stackQueue;
+    Queue<Integer> temp;
+    int stackSize;
+
+    /** Initialize your data structure here. */
+    public MyStack() {
+        stackQueue = new LinkedList<>();
+        temp = new LinkedList<>();
+        stackSize = 0;
+    }
+
+    /** Push element x onto stack. */
+    public void push(int x) {
+        stackQueue.add(x);
+        stackSize++;
+
+    }
+
+    /** Removes the element on top of the stack and returns that element. */
+    public int pop() {
+        return popOrTop(true);
+    }
+
+    /** Get the top element. */
+    public int top() {
+       return popOrTop(false);
+    }
+
+    /** Returns whether the stack is empty. */
+    public boolean empty() {
+        return (stackQueue.peek() == null);
+    }
+    //combined the top() and pop()
+    private int popOrTop(boolean removeTop){
+
+        for(int i = 0; i < stackSize - 1; i++){
+            temp.add(stackQueue.poll());
+        }
+        //here we want to save the answr, which will b the last
+        //entry of the quwuw
+        int answer = stackQueue.poll();
+        stackSize--;
+        //if it's only top(), add the (removed) into temp anf should be added back to stackQueue
+        if(!removeTop){
+            temp.add(answer);
+            stackSize++;
+        }
+        //fill the stackQueue by repeating the process backwards
+        fillStackQueue();
+        return answer;
+    }
+    private void fillStackQueue(){
+        //this wil also empties temp for future use
+        for (int counter = 0; counter < stackSize; counter ++)
+        {
+            stackQueue.add(temp.poll());
+        }
+    }
+}
+
+/**
+ * Your MyStack object will be instantiated and called as such:
+ * MyStack obj = new MyStack();
+ * obj.push(x);
+ * int param_2 = obj.pop();
+ * int param_3 = obj.top();
+ * boolean param_4 = obj.empty();
+ */

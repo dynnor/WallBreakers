@@ -1,0 +1,55 @@
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        //use Heap's algorithm
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
+
+        getPermutations(nums, result, nums.length);
+
+        return result;
+
+    }
+    private void getPermutations(int[] nums, List<List<Integer>> result, int size){
+
+        //if we only have one number - add that number to the array
+        //and then return
+        if(size == 1){
+
+            result.add(createListFromArray(nums));
+            return;
+        }
+        //use a forloop to iterate through the list
+        for(int i= 0; i <size; i++){
+            //you want to do the smallest swap possible
+            getPermutations(nums, result, size-1);
+            //if even length
+            if( size %2 ==0){
+                //swap ith element with the last element
+                int temp = nums[i];
+                nums[i] = nums[size -1];
+                nums[size -1] = temp;
+
+            }
+            //if odd length
+            else{
+                //swap last element with first
+                int temp = nums[0];
+                nums[0] = nums[size-1];
+                nums[size -1] = temp;
+
+
+            }
+        }
+        return;
+
+    }
+    //Java will return a list of primitive ints
+    //need to make a helper function
+    private List<Integer> createListFromArray(int[] array){
+
+        List<Integer> list = new ArrayList<>();
+        for(int num: array){
+            list.add(num);
+        }
+        return list;
+    }
+}

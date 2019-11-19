@@ -1,0 +1,33 @@
+class Solution {
+    public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+
+        //By using a stack we can iterate through every number in nums2
+        //by checking if the current val on the stack is less, putting it's couterpart in a map
+        //and then returning the map as an array
+        Stack <Integer> partnerlessNums = new Stack<>();
+        HashMap<Integer, Integer> pairings = new HashMap<>();
+        int[] result = new int[nums1.length];
+
+        for (int num: nums2){
+        //If this number is greater than the current number on  stack, peel away at the stack
+            //stack to partner it will every number that is less than it
+            while(!partnerlessNums.empty() && num> partnerlessNums.peek()){
+                pairings.put(partnerlessNums.pop(), num);
+            }
+        //and then also put it on the stack
+        partnerlessNums.push(num);
+        }
+        //after going through all the numbers- any numbers remaining - means
+        //they have no partner so we pair them with -1
+        //unless they weren't in nums2
+        while(!partnerlessNums.empty()){
+            pairings.put(partnerlessNums.pop(), -1);
+        }
+        //then put all the results in the array
+        for(int i = 0; i < nums1.length; i++){
+
+            result[i] = pairings.get(nums1[i]);
+        }
+        return result;
+    }
+}

@@ -1,0 +1,25 @@
+class Solution {
+    public boolean canPartition(int[] nums) {
+        int sum = 0;
+        for( int num: nums){
+            sum += num;
+        }
+        //if it's odd we know we can't split it into equal parts
+
+        if(sum % 2 ==1)
+            return false;
+        return checkPartitions(nums, nums.length - 1, 0, sum / 2);
+    }
+    private boolean checkPartitions(int[] nums, int index, int currSum, int targetSum){
+
+        if( currSum == targetSum)
+            return true;
+
+        if(index < 0 || currSum > targetSum || nums[index] > targetSum)
+            return false;
+        //return the result of adding the current number to the sum
+        //or skipping it
+        return (checkPartitions(nums, index - 1, currSum + nums[index], targetSum))
+            || (checkPartitions(nums, index - 1, currSum, targetSum));
+    }
+}
